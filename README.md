@@ -1,4 +1,4 @@
-# Super simple SSR rendering for Deno using JSX
+# Super simple SSR for Deno using JSX
 
 For when you quickly want to render some HTML on the server, but don't need to support any client
 side interactivity.
