@@ -100,6 +100,8 @@ export async function renderToString(jsx: Node): Promise<string> {
       case "img":
       case "br":
       case "hr":
+      case "link":
+      case "meta":
         return `<${jsx.type}${props} />`;
       default:
         return `<${jsx.type}${props}>${innerHTML}</${jsx.type}>`;
