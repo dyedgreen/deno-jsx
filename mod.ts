@@ -1,8 +1,8 @@
 declare global {
   namespace JSX {
-    type Element = any;
+    type Element = Node;
     interface IntrinsicElements {
-      [elemName: string]: JSX.Element;
+      [elemName: string]: unknown;
     }
   }
 }
@@ -18,6 +18,7 @@ interface Children {
   children?: (Node | litaral | null)[];
 }
 
+// deno-lint-ignore no-explicit-any
 export interface Node<P = any> {
   type: Component<P> | string;
   props: P & Children;
@@ -26,7 +27,7 @@ export interface Node<P = any> {
 export function h(
   type: Component | string,
   props?: { [prop: string]: unknown },
-  ...children: Array<Node | string>
+  ...children: (Node | litaral | null)[]
 ): JSX.Element {
   return { type, props: { ...props, children } };
 }
@@ -97,11 +98,23 @@ export async function renderToString(jsx: Node): Promise<string> {
 
     // render HTML tag
     switch (jsx.type) {
-      case "img":
+      case "area":
+      case "base":
+      case "basefont":
       case "br":
+      case "col":
+      case "embed":
       case "hr":
+      case "img":
+      case "input":
+      case "keygen":
       case "link":
       case "meta":
+      case "param":
+      case "source":
+      case "spacer":
+      case "track":
+      case "wbr":
         return `<${jsx.type}${props} />`;
       default:
         return `<${jsx.type}${props}>${innerHTML}</${jsx.type}>`;
