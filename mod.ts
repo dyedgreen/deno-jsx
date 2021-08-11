@@ -1,8 +1,12 @@
 declare global {
   namespace JSX {
-    type Element = Node;
+    // deno-lint-ignore no-explicit-any
+    type Element = any;
     interface IntrinsicElements {
       [elemName: string]: unknown;
+    }
+    interface ElementChildrenAttribute {
+      children: {};
     }
   }
 }
