@@ -12,14 +12,14 @@ declare global {
 }
 
 type litaral = string | number;
-type NodeSet = Node | litaral | null | (Node | litaral | null)[];
+type NodeSet = Node | litaral | null | false | (Node | litaral | null | false)[];
 
 export interface Component<P = unknown> {
   (props: P): NodeSet | Promise<NodeSet>;
 }
 
 interface Children {
-  children?: (Node | litaral | null)[];
+  children?: (Node | litaral | null | false)[];
 }
 
 // deno-lint-ignore no-explicit-any
@@ -31,7 +31,7 @@ export interface Node<P = any> {
 export function h(
   type: Component | string,
   props?: { [prop: string]: unknown },
-  ...children: (Node | litaral | null)[]
+  ...children: (Node | litaral | null | false)[]
 ): JSX.Element {
   return { type, props: { ...props, children } };
 }
