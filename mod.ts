@@ -54,7 +54,7 @@ function escapeHTML(text: string): string {
 }
 
 async function renderNodeSetToString(nodes: NodeSet): Promise<string> {
-  if (nodes == null) {
+  if (nodes == null || nodes === false) {
     return "";
   } else if (typeof nodes !== "object") {
     return escapeHTML(`${nodes}`);
